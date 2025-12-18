@@ -1,0 +1,81 @@
+---
+import '../index.css';
+
+const title = "Panther Diamonds - Premium Custom Engagement Rings";
+const description = "Panther Diamonds offers Madison Avenue quality custom engagement rings at Diamond District prices. Get premium certified diamonds, bespoke designs, and expert craftsmanship. Request your quote today!";
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="description" content={description} />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="keywords"
+      content="engagement rings, custom engagement rings, diamond rings, Panther Diamonds, Madison Avenue quality, diamond district prices, bespoke jewelry, custom jewelry design, wedding rings"
+    />
+    <meta name="robots" content="index,follow" />
+    <meta name="author" content="Panther Diamonds" />
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content="https://www.pantherdiamonds.com" />
+    <meta property="og:site_name" content="Panther Diamonds" />
+    <meta property="og:image" content="https://www.pantherdiamonds.com/og-image.png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:type" content="image/png" />
+
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content="https://www.pantherdiamonds.com/og-image.png" />
+
+    <!-- Canonical -->
+    <link rel="canonical" href="https://www.pantherdiamonds.com" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="generator" content={Astro.generator} />
+    <title>{title}</title>
+  </head>
+  <body class="min-h-screen bg-black" style="scroll-behavior: smooth;">
+    <slot />
+
+    <!-- Scroll to top button -->
+    <button
+      id="scroll-to-top"
+      type="button"
+      class="fixed bottom-6 right-4 sm:right-6 z-40 inline-flex items-center justify-center w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-gradient-to-r from-pink-500 to-rose-600 text-white shadow-lg shadow-pink-500/40 transition-all duration-300 opacity-0 pointer-events-none hover:scale-105"
+      aria-label="Scroll to top"
+    >
+      ↑
+    </button>
+
+    <script>
+      // Show / hide scroll-to-top button and handle smooth scroll
+      document.addEventListener('DOMContentLoaded', () => {
+        const btn = document.getElementById('scroll-to-top');
+        if (!btn) return;
+
+        const toggleVisibility = () => {
+          if (window.scrollY > 300) {
+            btn.classList.remove('opacity-0', 'pointer-events-none');
+            btn.classList.add('opacity-100');
+          } else {
+            btn.classList.add('opacity-0', 'pointer-events-none');
+            btn.classList.remove('opacity-100');
+          }
+        };
+
+        window.addEventListener('scroll', toggleVisibility, { passive: true });
+
+        btn.addEventListener('click', () => {
+          window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+      });
+    </script>
+  </body>
+</html>

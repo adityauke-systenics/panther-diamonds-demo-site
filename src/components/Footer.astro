@@ -1,0 +1,39 @@
+---
+import { Mail } from 'lucide-astro';
+import logoImage from '../assets/logo-pd copy.png';
+---
+
+<footer class="bg-black border-t border-pink-500/20">
+  <div class="container mx-auto px-4 sm:px-6 py-8 sm:py-12">
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-8 sm:gap-12 items-center">
+      <div class="flex justify-center md:justify-start">
+        <img
+          src={logoImage.src}
+          alt="Panther Diamonds Logo"
+          class="h-16 sm:h-24 w-auto opacity-90 hover:opacity-100 transition-opacity duration-300"
+        />
+      </div>
+
+      <div class="text-center">
+        <h3 class="text-lg sm:text-xl font-bold text-white mb-1">Madison Avenue quality at diamond district prices.</h3>
+      </div>
+
+      <div class="flex flex-col items-center md:items-end space-y-3">
+        <a
+          href="mailto:sales@pantherdiamonds.com?subject=Ring%20required%2C%20need%20price%20quotation"
+          class="flex items-center space-x-2 sm:space-x-3 text-pink-400 hover:text-pink-300 transition-colors duration-300 group"
+        >
+          <Mail class="w-4 h-4 sm:w-5 sm:h-5 group-hover:scale-110 transition-transform duration-300" />
+          <span class="font-medium text-sm sm:text-base">sales@pantherdiamonds.com</span>
+        </a>
+        <p class="text-gray-500 text-xs sm:text-sm">www.pantherdiamonds.com</p>
+      </div>
+    </div>
+
+    <div class="mt-8 sm:mt-10">
+      <p class="text-gray-500 text-xs sm:text-sm font-light text-center">
+        &copy; {new Date().getFullYear()} Panther Diamonds. All rights reserved.
+      </p>
+    </div>
+  </div>
+</footer>

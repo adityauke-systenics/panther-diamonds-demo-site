@@ -1,0 +1,85 @@
+---
+import { Mail } from 'lucide-astro';
+import logoImage from '../assets/logo-pd copy.png';
+---
+
+<header class="fixed top-0 left-0 right-0 z-50 bg-black/80 backdrop-blur-lg border-b border-pink-500/20">
+  <div class="container mx-auto px-4 sm:px-6 py-3 sm:py-4">
+    <div class="flex flex-wrap items-center justify-between gap-y-2 sm:gap-y-3">
+      <!-- Logo -->
+      <div class="flex items-center space-x-3 animate-fade-in order-1">
+        <img
+          src={logoImage.src}
+          alt="Panther Diamonds Logo"
+          class="h-20 sm:h-28 w-auto"
+        />
+      </div>
+
+      <!-- Centered navigation on larger screens, second row on small screens -->
+      <nav
+        aria-label="Main navigation"
+        class="w-full order-3 lg:order-2 border-t border-pink-500/10 pt-2 sm:pt-3 lg:border-t-0 lg:pt-0 lg:w-auto"
+      >
+        <ul class="flex flex-wrap justify-center gap-4 sm:gap-6 text-sm sm:text-base font-medium text-gray-300">
+          <li>
+            <a
+              href="#welcome"
+              class="hover:text-pink-400 transition-colors duration-200 underline-offset-4 hover:underline"
+            >
+              Welcome
+            </a>
+          </li>
+          <li>
+            <a
+              href="#how-it-works"
+              class="hover:text-pink-400 transition-colors duration-200 underline-offset-4 hover:underline"
+            >
+              How It Works
+            </a>
+          </li>
+          <li>
+            <a
+              href="#faq"
+              class="hover:text-pink-400 transition-colors duration-200 underline-offset-4 hover:underline"
+            >
+              FAQ
+            </a>
+          </li>
+        </ul>
+      </nav>
+
+      <!-- Contact -->
+      <a
+        href="mailto:sales@pantherdiamonds.com?subject=Ring%20required%2C%20need%20price%20quotation"?subject=Ring%20required%2C%20need%20price%20quotation"
+        class="flex items-center space-x-2 text-pink-400 hover:text-pink-300 transition-colors duration-300 group order-2 lg:order-3"
+      >
+        <Mail class="w-6 h-6 sm:w-5 sm:h-5 group-hover:scale-110 transition-transform duration-300" />
+        <span class="hidden md:inline font-medium text-sm sm:text-base">sales@pantherdiamonds.com</span>
+      </a>
+    </div>
+  </div>
+</header>
+
+<script>
+  // Smooth scroll for all in-page navigation links
+  document.addEventListener('DOMContentLoaded', () => {
+    const navLinks = document.querySelectorAll('a[href^="#"]');
+
+    navLinks.forEach((link) => {
+      link.addEventListener('click', (event) => {
+        const href = link.getAttribute('href');
+        if (!href || href === '#') return;
+
+        const targetId = href.slice(1);
+        const targetElement = document.getElementById(targetId);
+        if (!targetElement) return;
+
+        event.preventDefault();
+        targetElement.scrollIntoView({
+          behavior: 'smooth',
+          block: 'start',
+        });
+      });
+    });
+  });
+</script>

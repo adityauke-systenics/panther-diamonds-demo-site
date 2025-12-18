@@ -1,0 +1,479 @@
+---
+import { ChevronDown } from 'lucide-astro';
+
+interface Props {
+  id?: string;
+}
+
+const { id = 'faq' } = Astro.props;
+
+const faqs = [
+  {
+    question: 'What makes Panther Diamonds different?',
+    answer: 'We offer Madison Avenue quality diamonds at Diamond District prices, providing you with premium quality without the premium markup.',
+  },
+  {
+    question: 'How do I know the diamonds are authentic?',
+    answer: 'All our diamonds come with certified documentation from recognized gemological laboratories, ensuring authenticity and quality.',
+  },
+  {
+    question: 'What is your return policy?',
+    answer: 'We offer a comprehensive return policy. Please contact us for specific details regarding returns and exchanges.',
+  },
+  {
+    question: 'Do you offer custom designs?',
+    answer: 'Yes, we specialize in custom jewelry designs. Contact our sales team to discuss your vision and requirements.',
+  },
+  {
+    question: 'How long does shipping take?',
+    answer: 'Shipping times vary based on your location and the item. Standard shipping typically takes 5-7 business days, with expedited options available.',
+  },
+  {
+    question: 'Do you offer financing options?',
+    answer: 'Yes, we offer flexible financing options to make your purchase more accessible. Contact us to learn more about available payment plans.',
+  },
+];
+---
+
+<section id={id} class="relative py-16 sm:py-24 bg-gradient-to-b from-black via-gray-900 to-black border-t border-pink-500/20 overflow-hidden scroll-mt-32">
+  <!-- Background decorative elements -->
+  <div class="absolute inset-0 opacity-10">
+    <div class="absolute top-20 right-10 w-72 h-72 bg-pink-500 rounded-full filter blur-3xl"></div>
+    <div class="absolute bottom-20 left-10 w-96 h-96 bg-rose-600 rounded-full filter blur-3xl"></div>
+  </div>
+
+  <div class="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+    <div class="max-w-4xl mx-auto">
+      <!-- Header -->
+      <div class="text-center mb-12 sm:mb-16 animate-slide-up">
+        <h2 class="text-3xl sm:text-4xl md:text-5xl font-bold text-white mb-4">
+          <span class="text-pink-400">Frequently Asked</span> <span class="text-white">Questions</span>
+        </h2>
+        <p class="text-gray-400 text-lg sm:text-xl font-light">
+          Everything you need to know about Panther Diamonds
+        </p>
+      </div>
+
+      <!-- FAQ Accordion -->
+      <div class="faq-list space-y-4">
+        {faqs.map((faq, index) => (
+          <div
+            class="faq-item group"
+            style={`animation-delay: ${index * 0.1}s`}
+          >
+            <button
+              type="button"
+              class="faq-question"
+              id={`faq-question-${index}`}
+              aria-expanded="false"
+              aria-controls={`faq-panel-${index}`}
+              data-faq-index={index}
+            >
+              <h3 class="faq-question-text">
+                {faq.question}
+              </h3>
+              <div class="faq-icon">
+                <ChevronDown class="faq-chevron" />
+              </div>
+            </button>
+            <div
+              class="faq-answer-wrapper"
+              id={`faq-panel-${index}`}
+              role="region"
+              aria-labelledby={`faq-question-${index}`}
+              aria-hidden="true"
+            >
+              <div class="faq-answer-content">
+                <p class="faq-answer-text">
+                  {faq.answer}
+                </p>
+              </div>
+            </div>
+          </div>
+        ))}
+      </div>
+
+      <!-- Contact CTA -->
+      <div class="text-center mt-12 sm:mt-16 animate-fade-in">
+        <p class="text-gray-400 text-lg sm:text-xl font-light">
+          Still have questions?
+          <a
+            href="mailto:sales@pantherdiamonds.com?subject=Ring%20required%2C%20need%20price%20quotation"
+            class="ml-2 text-pink-400 underline underline-offset-4 hover:text-pink-300 transition-colors duration-200"
+          >
+            Contact us
+          </a>
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+  /**
+   * Production-ready FAQ Accordion
+   * Uses CSS Grid for smooth, performant animations
+   * Implements proper accessibility and error handling
+   */
+  (function initFAQAccordion() {
+    'use strict';
+
+    const SELECTORS = {
+      item: '.faq-item',
+      button: '.faq-question',
+      wrapper: '.faq-answer-wrapper',
+      chevron: '.faq-chevron',
+    };
+
+    const CLASSES = {
+      expanded: 'is-expanded',
+      animating: 'is-animating',
+    };
+
+    const ANIMATION_DURATION = 400; // ms
+
+    /**
+     * Initialize accordion functionality
+     */
+    function init() {
+      const items = document.querySelectorAll<HTMLElement>(SELECTORS.item);
+      
+      if (items.length === 0) {
+        console.warn('FAQ: No accordion items found');
+        return;
+      }
+
+      items.forEach((item, index) => {
+        try {
+          setupAccordionItem(item, index);
+        } catch (error) {
+          console.error(`FAQ: Error setting up item ${index}:`, error);
+        }
+      });
+    }
+
+    /**
+     * Setup individual accordion item
+     */
+    function setupAccordionItem(item: HTMLElement, index: number) {
+      const button = item.querySelector<HTMLButtonElement>(SELECTORS.button);
+      const wrapper = item.querySelector<HTMLElement>(SELECTORS.wrapper);
+      const chevron = item.querySelector<HTMLElement>(SELECTORS.chevron);
+
+      if (!button || !wrapper || !chevron) {
+        console.warn(`FAQ: Missing required elements for item ${index}`);
+        return;
+      }
+
+      // Initialize closed state
+      button.setAttribute('aria-expanded', 'false');
+      wrapper.setAttribute('aria-hidden', 'true');
+      wrapper.style.gridTemplateRows = '0fr';
+
+      // Handle click events
+      button.addEventListener('click', () => {
+        handleToggle(button, wrapper, chevron);
+      });
+
+      // Handle keyboard navigation
+      button.addEventListener('keydown', (e: KeyboardEvent) => {
+        if (e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault();
+          handleToggle(button, wrapper, chevron);
+        }
+      });
+    }
+
+    /**
+     * Handle accordion toggle
+     */
+    function handleToggle(
+      button: HTMLButtonElement,
+      wrapper: HTMLElement,
+      chevron: HTMLElement
+    ) {
+      const isExpanded = button.getAttribute('aria-expanded') === 'true';
+      
+      // Prevent rapid clicking during animation
+      if (wrapper.classList.contains(CLASSES.animating)) {
+        return;
+      }
+
+      if (isExpanded) {
+        collapse(wrapper, button, chevron);
+      } else {
+        expand(wrapper, button, chevron);
+      }
+    }
+
+    /**
+     * Expand accordion item
+     */
+    function expand(
+      wrapper: HTMLElement,
+      button: HTMLButtonElement,
+      chevron: HTMLElement
+    ) {
+      wrapper.classList.add(CLASSES.animating);
+      button.setAttribute('aria-expanded', 'true');
+      wrapper.setAttribute('aria-hidden', 'false');
+      
+      // Use requestAnimationFrame for smooth animation start
+      requestAnimationFrame(() => {
+        wrapper.style.gridTemplateRows = '1fr';
+        wrapper.classList.add(CLASSES.expanded);
+        chevron.classList.add(CLASSES.expanded);
+        
+        // Remove animating class after animation completes
+        setTimeout(() => {
+          wrapper.classList.remove(CLASSES.animating);
+        }, ANIMATION_DURATION);
+      });
+    }
+
+    /**
+     * Collapse accordion item
+     */
+    function collapse(
+      wrapper: HTMLElement,
+      button: HTMLButtonElement,
+      chevron: HTMLElement
+    ) {
+      wrapper.classList.add(CLASSES.animating);
+      button.setAttribute('aria-expanded', 'false');
+      wrapper.setAttribute('aria-hidden', 'true');
+      
+      requestAnimationFrame(() => {
+        wrapper.style.gridTemplateRows = '0fr';
+        wrapper.classList.remove(CLASSES.expanded);
+        chevron.classList.remove(CLASSES.expanded);
+        
+        setTimeout(() => {
+          wrapper.classList.remove(CLASSES.animating);
+        }, ANIMATION_DURATION);
+      });
+    }
+
+    // Initialize when DOM is ready
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', init);
+    } else {
+      init();
+    }
+  })();
+</script>
+
+<style>
+  /* FAQ List Container */
+  .faq-list {
+    contain: layout style;
+  }
+
+  /* FAQ Item */
+  .faq-item {
+    display: flex;
+    flex-direction: column;
+    background: linear-gradient(to bottom right, rgba(31, 41, 55, 0.5), rgba(17, 24, 39, 0.5));
+    border: 1px solid rgba(236, 72, 153, 0.2);
+    border-radius: 0.75rem;
+    overflow: hidden;
+    animation: fadeInUp 0.6s ease-out forwards;
+    opacity: 0;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+  }
+
+  .faq-item:hover {
+    border-color: rgba(236, 72, 153, 0.5);
+    box-shadow: 0 10px 15px -3px rgba(236, 72, 153, 0.1), 0 4px 6px -2px rgba(236, 72, 153, 0.05);
+  }
+
+  @keyframes fadeInUp {
+    from {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  /* FAQ Question Button */
+  .faq-question {
+    width: 100%;
+    padding: 1.25rem 1.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    text-align: left;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    transition: color 0.3s ease;
+    color: white;
+  }
+
+  .faq-question:focus-visible {
+    outline: 2px solid rgba(236, 72, 153, 0.5);
+    outline-offset: -2px;
+    border-radius: 0.75rem;
+  }
+
+  .faq-question-text {
+    font-size: 1.125rem;
+    line-height: 1.75rem;
+    font-weight: 600;
+    color: white;
+    padding-right: 1rem;
+    transition: color 0.3s ease;
+  }
+
+  @media (min-width: 640px) {
+    .faq-question-text {
+      font-size: 1.25rem;
+      line-height: 2rem;
+    }
+  }
+
+  @media (min-width: 768px) {
+    .faq-question-text {
+      font-size: 1.5rem;
+      line-height: 2rem;
+    }
+  }
+
+  .faq-item:hover .faq-question-text {
+    color: rgb(244, 114, 182);
+  }
+
+  /* FAQ Icon */
+  .faq-icon {
+    flex-shrink: 0;
+    width: 2.5rem;
+    height: 2.5rem;
+    border-radius: 9999px;
+    background: linear-gradient(to bottom right, rgba(236, 72, 153, 0.2), rgba(244, 63, 94, 0.2));
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background 0.3s ease;
+  }
+
+  @media (min-width: 640px) {
+    .faq-icon {
+      width: 2.5rem;
+      height: 2.5rem;
+    }
+  }
+
+  .faq-item:hover .faq-icon {
+    background: linear-gradient(to bottom right, rgb(236, 72, 153), rgb(244, 63, 94));
+  }
+
+  .faq-chevron {
+    width: 1.5rem;
+    height: 1.5rem;
+    color: rgb(244, 114, 182);
+    transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    transform-origin: center;
+    transform: translateZ(0);
+    will-change: transform;
+  }
+
+  @media (min-width: 640px) {
+    .faq-chevron {
+      width: 1.5rem;
+      height: 1.5rem;
+    }
+  }
+
+  .faq-chevron.is-expanded {
+    transform: rotate(180deg) translateZ(0);
+  }
+
+  /* FAQ Answer Wrapper - CSS Grid Animation */
+  .faq-answer-wrapper {
+    display: grid;
+    grid-template-rows: 0fr;
+    transition: grid-template-rows 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    overflow: hidden;
+    margin: 0;
+    padding: 0;
+  }
+
+  .faq-answer-wrapper.is-expanded {
+    grid-template-rows: 1fr;
+  }
+
+  /* FAQ Answer Content */
+  .faq-answer-content {
+    min-height: 0;
+    padding: 0;
+    margin: 0;
+    opacity: 0;
+    transform: translateY(-8px);
+    overflow: hidden;
+    transition: opacity 0.4s cubic-bezier(0.4, 0, 0.2, 1) 0.05s,
+                transform 0.4s cubic-bezier(0.4, 0, 0.2, 1) 0.05s,
+                padding 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .faq-answer-wrapper.is-expanded .faq-answer-content {
+    opacity: 1;
+    transform: translateY(0);
+    padding: 0 1.5rem 1.25rem;
+  }
+
+  .faq-answer-text {
+    margin: 0;
+    padding: 0;
+    font-size: 1rem;
+    line-height: 1.75rem;
+    font-weight: 300;
+    color: rgb(209, 213, 219);
+    border-top: none;
+    transition: padding-top 0.4s cubic-bezier(0.4, 0, 0.2, 1) 0.05s,
+                border-top-color 0.4s cubic-bezier(0.4, 0, 0.2, 1) 0.05s;
+  }
+
+  .faq-answer-wrapper.is-expanded .faq-answer-text {
+    padding-top: 1rem;
+    border-top: 1px solid rgba(236, 72, 153, 0.1);
+  }
+
+  @media (min-width: 640px) {
+    .faq-answer-text {
+      font-size: 1.125rem;
+      line-height: 1.75rem;
+    }
+  }
+
+  /* Reduced motion support */
+  @media (prefers-reduced-motion: reduce) {
+    .faq-item,
+    .faq-answer-wrapper,
+    .faq-answer-content,
+    .faq-chevron {
+      animation: none !important;
+      transition: none !important;
+    }
+
+    .faq-answer-wrapper {
+      grid-template-rows: 1fr !important;
+    }
+
+    .faq-answer-wrapper:not(.is-expanded) {
+      grid-template-rows: 0fr !important;
+    }
+
+    .faq-answer-content {
+      opacity: 1 !important;
+      transform: none !important;
+    }
+
+    .faq-answer-wrapper:not(.is-expanded) .faq-answer-content {
+      opacity: 0 !important;
+    }
+  }
+</style>

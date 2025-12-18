@@ -1,0 +1,46 @@
+# robots.txt for pantherdiamonds.com
+# Last updated: 2024
+
+# Allow all search engines to crawl the site
+User-agent: *
+Allow: /
+
+# Disallow common non-indexable paths
+Disallow: /_assets/
+Disallow: /*.json$
+
+# Allow sitemap files (they're important for SEO)
+Allow: /sitemap*.xml
+
+# Crawl-delay to prevent server overload (optional, adjust as needed)
+Crawl-delay: 1
+
+# Specific rules for major search engines
+# Google
+User-agent: Googlebot
+Allow: /
+Crawl-delay: 0
+
+# Bing
+User-agent: Bingbot
+Allow: /
+Crawl-delay: 1
+
+# Yandex
+User-agent: Yandex
+Allow: /
+Crawl-delay: 1
+
+# Block bad bots and scrapers (common ones)
+User-agent: AhrefsBot
+Crawl-delay: 10
+
+User-agent: SemrushBot
+Crawl-delay: 10
+
+User-agent: DotBot
+Crawl-delay: 10
+
+# Sitemap location
+# Astro sitemap integration generates sitemap-index.xml
+Sitemap: https://www.pantherdiamonds.com/sitemap-index.xml
