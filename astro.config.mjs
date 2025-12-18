@@ -3,10 +3,9 @@ import tailwind from '@astrojs/tailwind';
 import sitemap from '@astrojs/sitemap';
 
 export default defineConfig({
-  site: 'https://www.pantherdiamonds.com',
+  site: 'https://adityauke-systenics.github.io',
   integrations: [tailwind(), sitemap()],
   output: 'static',
-  base: './',
   build: {
     assets: '_assets',
   },
