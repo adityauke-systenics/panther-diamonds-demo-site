@@ -1,19 +1,19 @@
 ---
 import { Mail } from 'lucide-astro';
-import logoImage from '../assets/logo-pd copy.png';
+import logoImage from '../assets/logo.png';
 ---
 
 <header class="fixed top-0 left-0 right-0 z-50 bg-black/80 backdrop-blur-lg border-b border-pink-500/20">
   <div class="container mx-auto px-4 sm:px-6 py-3 sm:py-4">
     <div class="flex flex-wrap items-center justify-between gap-y-2 sm:gap-y-3">
       <!-- Logo -->
-      <div class="flex items-center space-x-3 animate-fade-in order-1">
+      <a href="/" class="flex items-center space-x-3 animate-fade-in order-1 hover:opacity-80 transition-opacity duration-200">
         <img
           src={logoImage.src}
           alt="Panther Diamonds Logo"
           class="h-20 sm:h-28 w-auto"
         />
-      </div>
+      </a>
 
       <!-- Centered navigation on larger screens, second row on small screens -->
       <nav
