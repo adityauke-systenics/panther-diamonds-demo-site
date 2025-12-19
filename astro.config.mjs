@@ -7,7 +7,7 @@ import sitemap from '@astrojs/sitemap';
 const base = process.env.BASE_PATH || '/';
 
 export default defineConfig({
-  site: 'https://www.pantherdiamonds.com',
+  site: 'https://pantherdiamonds.com',
   base: base,
   integrations: [tailwind(), sitemap()],
 });
