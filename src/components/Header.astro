@@ -11,7 +11,12 @@ import logoImage from '../assets/logo.png';
         <img
           src={logoImage.src}
           alt="Panther Diamonds Logo"
+          width={logoImage.width || 200}
+          height={logoImage.height || 112}
           class="h-20 sm:h-28 w-auto"
+          loading="eager"
+          fetchpriority="high"
+          decoding="async"
         />
       </a>
 
@@ -50,7 +55,7 @@ import logoImage from '../assets/logo.png';
 
       <!-- Contact -->
       <a
-        href="mailto:sales@pantherdiamonds.com?subject=Ring%20required%2C%20need%20price%20quotation"?subject=Ring%20required%2C%20need%20price%20quotation"
+        href="mailto:sales@pantherdiamonds.com?subject=Ring%20required%2C%20need%20price%20quotation"
         class="flex items-center space-x-2 text-pink-400 hover:text-pink-300 transition-colors duration-300 group order-2 lg:order-3"
       >
         <Mail class="w-6 h-6 sm:w-5 sm:h-5 group-hover:scale-110 transition-transform duration-300" />

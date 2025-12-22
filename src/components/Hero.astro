@@ -4,13 +4,8 @@ import heroImage from '../assets/hero.jpg';
 
 <section id="welcome" class="relative min-h-screen flex items-center justify-center overflow-hidden scroll-mt-32">
   <div
-    class="absolute inset-0 z-0"
-    style={{
-      backgroundImage: `url(${heroImage.src})`,
-      backgroundSize: 'cover',
-      backgroundPosition: 'center',
-      backgroundAttachment: 'fixed',
-    }}
+    class="absolute inset-0 z-0 hero-bg"
+    style={{ backgroundImage: `url(${heroImage.src})` }}
   >
     <div class="absolute inset-0 bg-gradient-to-b from-black/70 via-black/60 to-black/70"></div>
   </div>
@@ -36,7 +31,7 @@ import heroImage from '../assets/hero.jpg';
           Details
         </a>
         <a
-          href="mailto:sales@pantherdiamonds.com?subject=Ring%20required%2C%20need%20price%20quotation"?subject=Ring%20required%2C%20need%20price%20quotation"
+          href="mailto:sales@pantherdiamonds.com?subject=Ring%20required%2C%20need%20price%20quotation"
           class="w-full sm:w-auto px-6 sm:px-8 py-3 sm:py-4 border-2 border-pink-500 text-pink-400 font-semibold rounded-full hover:bg-pink-500/10 transition-colors duration-300 text-center"
         >
           Contact Us

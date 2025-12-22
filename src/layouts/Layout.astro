@@ -1,5 +1,6 @@
 ---
 import '../index.css';
+import heroImage from '../assets/hero.jpg';
 
 const title = "Panther Diamonds - Premium Custom Engagement Rings";
 const description = "Panther Diamonds offers Madison Avenue quality custom engagement rings at Diamond District prices. Get premium certified diamonds, bespoke designs, and expert craftsmanship. Request your quote today!";
@@ -39,6 +40,10 @@ const description = "Panther Diamonds offers Madison Avenue quality custom engag
     <link rel="canonical" href="https://www.pantherdiamonds.com" />
     <meta name="generator" content={Astro.generator} />
     <link rel="icon" type="image/x-icon" href="/favicon.ico" />
+    
+    <!-- Preload critical hero image for faster LCP -->
+    <link rel="preload" as="image" href={heroImage.src} fetchpriority="high" />
+    
     <title>{title}</title>
   </head>
   <body class="min-h-screen bg-black" style="scroll-behavior: smooth;">

@@ -10,7 +10,11 @@ import logoImage from '../assets/logo.png';
         <img
           src={logoImage.src}
           alt="Panther Diamonds Logo"
+          width={logoImage.width || 200}
+          height={logoImage.height || 96}
           class="h-16 sm:h-24 w-auto opacity-90 hover:opacity-100 transition-opacity duration-300"
+          loading="lazy"
+          decoding="async"
         />
       </div>
 

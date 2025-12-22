@@ -165,3 +165,16 @@
   scrollbar-width: thin;
   scrollbar-color: rgba(236, 72, 153, 0.5) rgba(0, 0, 0, 0.3);
 }
+
+/* Hero Background - Desktop parallax + Mobile safe */
+.hero-bg {
+  background-size: cover;
+  background-position: center;
+}
+
+/* Only enable fixed background on desktop */
+@media (min-width: 1024px) {
+  .hero-bg {
+    background-attachment: fixed;
+  }
+}
